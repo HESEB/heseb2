@@ -27,7 +27,7 @@
     .profile-row span { margin-top:3px; color:#8a6f66; font-size:.82rem; }
     .post-text,.message-text { margin:0; line-height:1.65; }
     .reaction-row { display:flex; gap:10px; margin-top:18px; color:#6b4f45; font-size:.9rem; }
-    .chat-scroll { max-height:430px; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding-right:4px; }
+    .chat-scroll { height:300px; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding-right:8px; border:2px dashed rgba(240,106,90,.24); }
     .chat-row .content { min-width:0; flex:1; }
     .chat-row .content p { margin:4px 0 0; color:#6b4f45; line-height:1.45; }
     .placeholder-note { margin-top:16px; padding:14px 16px; border-radius:16px; color:#6b4f45; background:#edf4f7; font-size:.88rem; line-height:1.55; }
@@ -41,29 +41,15 @@
 <body>
   <main class="phone" aria-label="HESEB 애플리케이션">
     <header class="app-header"><h1>HESEB</h1><span class="status">V1 STEP 3</span></header>
-
     <section id="screen-stack" class="screen-stack">
       <section id="sns-screen" class="screen" aria-labelledby="sns-title">
         <h2 id="sns-title" class="screen-title">SNS</h2>
-        <article class="card sns-card" data-post-index="0">
-          <div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div>
-          <p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p>
-          <div class="reaction-row"><span>♡ 8</span><span>댓글 3</span></div>
-        </article>
-        <article class="card sns-card" data-post-index="1" hidden>
-          <div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div>
-          <p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p>
-          <div class="reaction-row"><span>♡ 11</span><span>댓글 4</span></div>
-        </article>
-        <article class="card sns-card" data-post-index="2" hidden>
-          <div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div>
-          <p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p>
-          <div class="reaction-row"><span>♡ 15</span><span>댓글 6</span></div>
-        </article>
+        <article class="card sns-card" data-post-index="0"><div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div><p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p><div class="reaction-row"><span>♡ 8</span><span>댓글 3</span></div></article>
+        <article class="card sns-card" data-post-index="1" hidden><div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div><p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p><div class="reaction-row"><span>♡ 11</span><span>댓글 4</span></div></article>
+        <article class="card sns-card" data-post-index="2" hidden><div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div><p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p><div class="reaction-row"><span>♡ 15</span><span>댓글 6</span></div></article>
         <p id="post-counter" class="counter">1 / 3</p>
         <div class="placeholder-note">위·아래로 밀거나 드래그하면 SNS 게시물이 순환합니다. 좌우로 밀면 단체채팅으로 이동합니다.</div>
       </section>
-
       <section id="group-chat-screen" class="screen" aria-labelledby="group-chat-title" hidden>
         <h2 id="group-chat-title" class="screen-title">5인 단체채팅</h2>
         <article id="chat-scroll" class="card chat-scroll" aria-label="단체채팅 대화 내역">
@@ -77,108 +63,33 @@
           <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>좋아용. 사용자님도 같이 해요!</p></div></div>
           <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>종목부터 정하는 게 좋겠습니다.</p></div></div>
           <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>대화가 이어지고 있습니다.</p></div></div>
+          <div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>가위바위보 어때? 준비할 것도 없잖아.</p></div></div>
+          <div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>그 정도면 바로 가능하겠슴다.</p></div></div>
+          <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나는 찬성이에용!</p></div></div>
+          <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>사용자님 의견을 기다리겠습니다.</p></div></div>
+          <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>제안이 기록되었습니다.</p></div></div>
         </article>
-        <div class="placeholder-note">단체채팅에서 위·아래 드래그는 대화 내역 스크롤입니다. 좌우 드래그는 SNS 이동입니다.</div>
+        <div class="placeholder-note">점선 안에서 위·아래로 드래그해 대화 스크롤을 확인하세요. 좌우 드래그는 SNS 이동입니다.</div>
       </section>
     </section>
-
-    <nav class="bottom-nav" aria-label="메인 화면">
-      <button type="button" data-screen="sns" aria-current="page">SNS</button>
-      <button type="button" data-screen="groupChat">단체채팅</button>
-    </nav>
+    <nav class="bottom-nav" aria-label="메인 화면"><button type="button" data-screen="sns" aria-current="page">SNS</button><button type="button" data-screen="groupChat">단체채팅</button></nav>
   </main>
-
   <script>
     "use strict";
-    const screens = { sns:document.getElementById("sns-screen"), groupChat:document.getElementById("group-chat-screen") };
-    const screenOrder = ["sns","groupChat"];
-    const screenStack = document.getElementById("screen-stack");
-    const chatScroll = document.getElementById("chat-scroll");
-    const navButtons = Array.from(document.querySelectorAll("[data-screen]"));
-    const snsCards = Array.from(document.querySelectorAll(".sns-card"));
-    const postCounter = document.getElementById("post-counter");
-    const gesture = { active:false, pointerId:null, startX:0, startY:0, lastY:0, scrollingChat:false };
-    const minimumDistance = 55;
-    let currentScreen = "sns";
-    let currentPostIndex = 0;
-
-    function showScreen(name) {
-      if (!screens[name]) return;
-      currentScreen = name;
-      Object.entries(screens).forEach(([key,screen]) => { screen.hidden = key !== name; });
-      navButtons.forEach((button) => button.dataset.screen === name ? button.setAttribute("aria-current","page") : button.removeAttribute("aria-current"));
-    }
-
-    function moveHorizontal() {
-      const currentIndex = screenOrder.indexOf(currentScreen);
-      showScreen(screenOrder[(currentIndex + 1) % screenOrder.length]);
-    }
-
-    function showPost(index) {
-      currentPostIndex = (index + snsCards.length) % snsCards.length;
-      snsCards.forEach((card,cardIndex) => { card.hidden = cardIndex !== currentPostIndex; });
-      postCounter.textContent = `${currentPostIndex + 1} / ${snsCards.length}`;
-    }
-
-    function moveVertical(direction) {
-      if (currentScreen !== "sns") return;
-      showPost(currentPostIndex + (direction === "up" ? 1 : -1));
-    }
-
-    function resetGesture() {
-      gesture.active = false;
-      gesture.pointerId = null;
-      gesture.scrollingChat = false;
-      screenStack.classList.remove("is-dragging");
-    }
-
-    screenStack.addEventListener("pointerdown", (event) => {
-      if (event.pointerType === "mouse" && event.button !== 0) return;
-      gesture.active = true;
-      gesture.pointerId = event.pointerId;
-      gesture.startX = event.clientX;
-      gesture.startY = event.clientY;
-      gesture.lastY = event.clientY;
-      gesture.scrollingChat = false;
-      screenStack.classList.add("is-dragging");
-      screenStack.setPointerCapture(event.pointerId);
-    });
-
-    screenStack.addEventListener("pointermove", (event) => {
-      if (!gesture.active || gesture.pointerId !== event.pointerId || currentScreen !== "groupChat") return;
-      const deltaX = event.clientX - gesture.startX;
-      const deltaY = event.clientY - gesture.startY;
-      if (!gesture.scrollingChat && Math.abs(deltaY) > 10 && Math.abs(deltaY) > Math.abs(deltaX)) {
-        gesture.scrollingChat = true;
-      }
-      if (gesture.scrollingChat) {
-        chatScroll.scrollTop -= event.clientY - gesture.lastY;
-        gesture.lastY = event.clientY;
-      }
-    });
-
-    screenStack.addEventListener("pointerup", (event) => {
-      if (!gesture.active || gesture.pointerId !== event.pointerId) return;
-      const deltaX = event.clientX - gesture.startX;
-      const deltaY = event.clientY - gesture.startY;
-      const absX = Math.abs(deltaX);
-      const absY = Math.abs(deltaY);
-
-      if (currentScreen === "groupChat" && gesture.scrollingChat) {
-        resetGesture();
-        return;
-      }
-
-      if (Math.max(absX, absY) >= minimumDistance) {
-        if (absX > absY) moveHorizontal();
-        else moveVertical(deltaY < 0 ? "up" : "down");
-      }
-      resetGesture();
-    });
-
-    screenStack.addEventListener("pointercancel", resetGesture);
-    screenStack.addEventListener("lostpointercapture", resetGesture);
-    navButtons.forEach((button) => button.addEventListener("click", () => showScreen(button.dataset.screen)));
+    const screens={sns:document.getElementById("sns-screen"),groupChat:document.getElementById("group-chat-screen")};
+    const screenOrder=["sns","groupChat"],screenStack=document.getElementById("screen-stack"),chatScroll=document.getElementById("chat-scroll");
+    const navButtons=Array.from(document.querySelectorAll("[data-screen]")),snsCards=Array.from(document.querySelectorAll(".sns-card")),postCounter=document.getElementById("post-counter");
+    const gesture={active:false,pointerId:null,startX:0,startY:0,lastY:0,scrollingChat:false};
+    const minimumDistance=55; let currentScreen="sns",currentPostIndex=0;
+    function showScreen(name){if(!screens[name])return;currentScreen=name;Object.entries(screens).forEach(([key,screen])=>{screen.hidden=key!==name;});navButtons.forEach(button=>button.dataset.screen===name?button.setAttribute("aria-current","page"):button.removeAttribute("aria-current"));}
+    function moveHorizontal(){const currentIndex=screenOrder.indexOf(currentScreen);showScreen(screenOrder[(currentIndex+1)%screenOrder.length]);}
+    function showPost(index){currentPostIndex=(index+snsCards.length)%snsCards.length;snsCards.forEach((card,cardIndex)=>{card.hidden=cardIndex!==currentPostIndex;});postCounter.textContent=`${currentPostIndex+1} / ${snsCards.length}`;}
+    function moveVertical(direction){if(currentScreen!=="sns")return;showPost(currentPostIndex+(direction==="up"?1:-1));}
+    function resetGesture(){gesture.active=false;gesture.pointerId=null;gesture.scrollingChat=false;screenStack.classList.remove("is-dragging");}
+    screenStack.addEventListener("pointerdown",event=>{if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.scrollingChat=false;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);});
+    screenStack.addEventListener("pointermove",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId||currentScreen!=="groupChat")return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY;if(!gesture.scrollingChat&&Math.abs(deltaY)>10&&Math.abs(deltaY)>Math.abs(deltaX))gesture.scrollingChat=true;if(gesture.scrollingChat){chatScroll.scrollTop-=event.clientY-gesture.lastY;gesture.lastY=event.clientY;}});
+    screenStack.addEventListener("pointerup",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(currentScreen==="groupChat"&&gesture.scrollingChat){resetGesture();return;}if(Math.max(absX,absY)>=minimumDistance){if(absX>absY)moveHorizontal();else moveVertical(deltaY<0?"up":"down");}resetGesture();});
+    screenStack.addEventListener("pointercancel",resetGesture);screenStack.addEventListener("lostpointercapture",resetGesture);navButtons.forEach(button=>button.addEventListener("click",()=>showScreen(button.dataset.screen)));
   </script>
 </body>
 </html>
