@@ -64,13 +64,14 @@
     }
 
     .profile-row,
-    .dm-preview {
+    .chat-row {
       display: flex;
       align-items: center;
       gap: 12px;
     }
 
     .profile-row { margin-bottom: 16px; }
+    .chat-row + .chat-row { margin-top: 14px; }
 
     .avatar {
       width: 48px;
@@ -83,6 +84,11 @@
       font-weight: 800;
       flex: 0 0 auto;
     }
+
+    .avatar.hash { background: #6bb2ff; }
+    .avatar.ena { background: #f8b871; }
+    .avatar.sady { background: #a573ed; }
+    .avatar.ion { background: #8a6f66; }
 
     .profile-row strong,
     .profile-row span { display: block; }
@@ -97,25 +103,13 @@
       font-size: 0.9rem;
     }
 
-    .dm-preview .content { min-width: 0; flex: 1; }
-    .dm-preview .content p {
+    .chat-row .content { min-width: 0; flex: 1; }
+    .chat-row .content p {
       margin: 4px 0 0;
       color: #6b4f45;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-    }
-
-    .badge {
-      min-width: 24px;
-      height: 24px;
-      display: grid;
-      place-items: center;
-      border-radius: 999px;
-      color: #fff;
-      background: #f74c9c;
-      font-size: 0.78rem;
-      font-weight: 700;
     }
 
     .placeholder-note {
@@ -177,23 +171,40 @@
           <p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p>
           <div class="reaction-row" aria-label="임시 반응 정보"><span>♡ 8</span><span>댓글 3</span></div>
         </article>
-        <div class="placeholder-note">왼쪽으로 밀거나 드래그하면 DM으로 이동합니다. 세로 움직임은 이번 단계에서 화면 전환으로 처리하지 않습니다.</div>
+        <div class="placeholder-note">왼쪽이나 오른쪽 어느 방향으로 밀어도 5인 단체채팅으로 이동합니다.</div>
       </section>
 
-      <section id="dm-screen" class="screen" aria-labelledby="dm-title" hidden>
-        <h2 id="dm-title" class="screen-title">DM</h2>
-        <article class="card dm-preview">
-          <div class="avatar" aria-hidden="true">B</div>
-          <div class="content"><strong>버디</strong><p class="message-text">오늘은 어떻게 보냈어?</p></div>
-          <span class="badge" aria-label="읽지 않은 메시지 1개">1</span>
+      <section id="group-chat-screen" class="screen" aria-labelledby="group-chat-title" hidden>
+        <h2 id="group-chat-title" class="screen-title">5인 단체채팅</h2>
+        <article class="card" aria-label="5인 단체채팅 미리보기">
+          <div class="chat-row">
+            <div class="avatar" aria-hidden="true">B</div>
+            <div class="content"><strong>버디</strong><p class="message-text">다들 오늘 뭐 하고 있었어?</p></div>
+          </div>
+          <div class="chat-row">
+            <div class="avatar hash" aria-hidden="true">H</div>
+            <div class="content"><strong>해시</strong><p class="message-text">전 그냥 여기 있었슴다.</p></div>
+          </div>
+          <div class="chat-row">
+            <div class="avatar ena" aria-hidden="true">E</div>
+            <div class="content"><strong>에나</strong><p class="message-text">에나도 방금 들어왔어용.</p></div>
+          </div>
+          <div class="chat-row">
+            <div class="avatar sady" aria-hidden="true">S</div>
+            <div class="content"><strong>새디</strong><p class="message-text">확인했습니다.</p></div>
+          </div>
+          <div class="chat-row">
+            <div class="avatar ion" aria-hidden="true">I</div>
+            <div class="content"><strong>이온</strong><p class="message-text">현재 5명이 참여 중입니다.</p></div>
+          </div>
         </article>
-        <div class="placeholder-note">오른쪽으로 밀거나 드래그하면 SNS로 돌아갑니다. 하단 버튼 이동도 그대로 사용할 수 있습니다.</div>
+        <div class="placeholder-note">왼쪽이나 오른쪽 어느 방향으로 밀어도 다시 SNS로 이동합니다. 개별 소통은 이후 쪽지함으로 추가합니다.</div>
       </section>
     </section>
 
     <nav class="bottom-nav" aria-label="메인 화면">
       <button type="button" data-screen="sns" aria-current="page">SNS</button>
-      <button type="button" data-screen="dm">DM</button>
+      <button type="button" data-screen="groupChat">단체채팅</button>
     </nav>
   </main>
 
@@ -202,9 +213,9 @@
 
     const screens = {
       sns: document.getElementById("sns-screen"),
-      dm: document.getElementById("dm-screen")
+      groupChat: document.getElementById("group-chat-screen")
     };
-    const screenOrder = ["sns", "dm"];
+    const screenOrder = ["sns", "groupChat"];
     const screenStack = document.getElementById("screen-stack");
     const navButtons = Array.from(document.querySelectorAll("[data-screen]"));
     const gesture = { active: false, pointerId: null, startX: 0, startY: 0 };
@@ -227,9 +238,9 @@
     }
 
     function moveHorizontal(direction) {
+      if (direction !== "left" && direction !== "right") return;
       const currentIndex = screenOrder.indexOf(currentScreen);
-      const nextIndex = direction === "left" ? currentIndex + 1 : currentIndex - 1;
-      if (nextIndex < 0 || nextIndex >= screenOrder.length) return;
+      const nextIndex = (currentIndex + 1) % screenOrder.length;
       showScreen(screenOrder[nextIndex]);
     }
 
