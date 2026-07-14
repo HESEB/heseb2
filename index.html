@@ -2,109 +2,65 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>HESEB</title>
   <style>
-    :root { font-family: Pretendard, "Noto Sans KR", system-ui, sans-serif; color:#3a2e2a; background:#eef3f6; }
-    * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; }
-    .phone { width:min(100%,430px); height:min(860px,100vh); min-height:760px; overflow:hidden; border-radius:30px; background:#f8fbfc; box-shadow:0 24px 60px rgba(37,46,53,.18); border:1px solid rgba(58,46,42,.08); display:flex; flex-direction:column; }
-    .app-header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:10px; min-height:72px; padding:12px 14px; color:#fff; background:linear-gradient(90deg,#f185ae 0%,#f8b871 35%,#a573ed 70%,#6bb2ff 100%); }
-    .app-header h1 { margin:0; font-size:1rem; letter-spacing:.08em; text-align:center; }
-    .header-nav { border:0; border-radius:999px; padding:9px 12px; color:#fff; background:rgba(255,255,255,.24); font:inherit; font-size:.82rem; font-weight:700; cursor:pointer; }
-    .header-nav:last-child { justify-self:end; }
-    .header-nav[aria-current="page"] { background:rgba(255,255,255,.42); }
-    .screen-stack { flex:1; min-height:0; padding:18px; touch-action:none; user-select:none; cursor:grab; }
-    .screen-stack.is-dragging { cursor:grabbing; }
-    .screen { height:100%; min-height:0; }
-    .screen[hidden], .sns-card[hidden] { display:none; }
-    .screen-title { margin:0 0 14px; font-size:1.5rem; }
-    .card { padding:18px; border-radius:22px; background:#fff; box-shadow:0 10px 24px rgba(52,63,70,.08); }
-    .profile-row,.chat-row { display:flex; align-items:center; gap:12px; }
-    .profile-row { margin-bottom:16px; }
-    .chat-row + .chat-row { margin-top:14px; }
-    .avatar { width:48px; height:48px; display:grid; place-items:center; border-radius:50%; color:#fff; background:#ff8e7a; font-weight:800; flex:0 0 auto; }
-    .avatar.hash { background:#6bb2ff; } .avatar.ena { background:#f8b871; } .avatar.sady { background:#a573ed; } .avatar.ion { background:#8a6f66; }
-    .profile-row strong,.profile-row span { display:block; }
-    .profile-row span { margin-top:3px; color:#8a6f66; font-size:.82rem; }
-    .post-text { margin:0; line-height:1.65; }
-    .reaction-row { display:flex; align-items:center; gap:10px; margin-top:18px; color:#6b4f45; font-size:.9rem; }
-    .like-button { border:0; padding:4px 2px; color:#6b4f45; background:transparent; font:inherit; cursor:pointer; }
-    .like-button[aria-pressed="true"] { color:#f74c9c; font-weight:800; }
-    .counter { margin:12px 0 0; text-align:center; color:#8a6f66; font-size:.82rem; }
-    .placeholder-note { margin-top:16px; padding:14px 16px; border-radius:16px; color:#6b4f45; background:#edf4f7; font-size:.88rem; line-height:1.55; }
-    .chat-screen { display:flex; flex-direction:column; }
-    .chat-scroll { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding:18px 14px 24px; background:#eef5f8; border-radius:22px; touch-action:none; }
-    .chat-row { align-items:flex-start; }
-    .chat-row .content { min-width:0; flex:1; padding:10px 12px; border-radius:16px; background:#fff; box-shadow:0 5px 14px rgba(52,63,70,.06); }
-    .chat-row .content p { margin:4px 0 0; color:#6b4f45; line-height:1.45; }
-    .chat-input { display:flex; gap:8px; margin-top:12px; padding:10px; border-radius:18px; background:#fff; }
-    .chat-input input { flex:1; min-width:0; border:0; outline:0; font:inherit; background:transparent; }
-    .chat-input button { border:0; border-radius:14px; padding:10px 14px; color:#fff; background:#f06a5a; font:inherit; font-weight:700; }
-    @media (max-width:520px) { body{padding:0;} .phone{width:100%; height:100vh; min-height:100vh; border:0; border-radius:0;} }
+    :root{font-family:system-ui,sans-serif;color:#3a2e2a;background:#eef3f6}*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px}.phone{position:relative;width:min(100%,430px);height:min(860px,100vh);min-height:760px;overflow:hidden;border-radius:30px;background:#f8fbfc;display:flex;flex-direction:column}.app-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;min-height:72px;padding:12px 14px;color:#fff;background:linear-gradient(90deg,#f185ae,#f8b871,#a573ed,#6bb2ff)}.app-header h1{margin:0;font-size:1rem;text-align:center}.header-nav{border:0;border-radius:999px;padding:9px 12px;color:#fff;background:#ffffff3d;font:inherit;font-weight:700}.header-nav:last-child{justify-self:end}.screen-stack{flex:1;min-height:0;padding:18px;touch-action:none;user-select:none}.screen{height:100%;min-height:0}.screen[hidden],.sns-card[hidden]{display:none}.screen-title{margin:0 0 14px}.card{padding:18px;border-radius:22px;background:#fff;box-shadow:0 10px 24px #343f4614}.profile-row,.chat-row{display:flex;align-items:center;gap:12px}.profile-row{margin-bottom:16px}.chat-row+.chat-row{margin-top:14px}.avatar{width:48px;height:48px;display:grid;place-items:center;border-radius:50%;color:#fff;background:#ff8e7a;font-weight:800;flex:0 0 auto}.hash{background:#6bb2ff}.ena{background:#f8b871}.sady{background:#a573ed}.ion{background:#8a6f66}.post-text{line-height:1.65}.reaction-row{display:flex;gap:12px;margin-top:18px}.reaction-row button{border:0;background:transparent;font:inherit;cursor:pointer}.like-button[aria-pressed=true]{color:#f74c9c;font-weight:800}.counter{text-align:center;color:#8a6f66}.chat-screen{display:flex;flex-direction:column}.chat-scroll{flex:1;min-height:0;overflow-y:auto;padding:18px 14px;background:#eef5f8;border-radius:22px;touch-action:none}.chat-row{align-items:flex-start}.chat-row .content{flex:1;padding:10px 12px;border-radius:16px;background:#fff}.chat-row p{margin:4px 0 0}.chat-input{display:flex;gap:8px;margin-top:12px;padding:10px;border-radius:18px;background:#fff}.chat-input input{flex:1;border:0}.chat-input button{border:0;border-radius:14px;padding:10px 14px;color:#fff;background:#f06a5a}.comments{position:absolute;inset:0;z-index:10;display:flex;align-items:flex-end;background:#0006}.comments[hidden]{display:none}.comments-panel{width:100%;max-height:72%;display:flex;flex-direction:column;padding:18px;border-radius:26px 26px 0 0;background:#fff}.comments-head{display:flex;justify-content:space-between;align-items:center}.comments-head button{border:0;background:transparent;font-size:1.3rem}.comments-list{overflow-y:auto;margin-top:12px}.comment{padding:12px 0;border-bottom:1px solid #eee}.comment strong{display:block}.comment p{margin:5px 0 0;color:#6b4f45}.comments-empty{padding:28px 0;text-align:center;color:#8a6f66}@media(max-width:520px){body{padding:0}.phone{width:100%;height:100vh;min-height:100vh;border-radius:0}}
   </style>
 </head>
 <body>
-  <main class="phone" aria-label="HESEB 애플리케이션">
-    <header class="app-header">
-      <button type="button" class="header-nav" data-screen="sns" aria-current="page">SNS</button>
-      <h1>HESEB</h1>
-      <button type="button" class="header-nav" data-screen="groupChat">단체채팅</button>
-    </header>
+  <main class="phone">
+    <header class="app-header"><button class="header-nav" data-screen="sns">SNS</button><h1>HESEB</h1><button class="header-nav" data-screen="groupChat">단체채팅</button></header>
     <section id="screen-stack" class="screen-stack">
-      <section id="sns-screen" class="screen" aria-labelledby="sns-title">
-        <h2 id="sns-title" class="screen-title">SNS</h2>
-        <article class="card sns-card" data-post-index="0"><div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div><p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="8" aria-pressed="false">♡ <span>8</span></button><span>댓글 3</span></div></article>
-        <article class="card sns-card" data-post-index="1" hidden><div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div><p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="11" aria-pressed="false">♡ <span>11</span></button><span>댓글 4</span></div></article>
-        <article class="card sns-card" data-post-index="2" hidden><div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div><p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="15" aria-pressed="false">♡ <span>15</span></button><span>댓글 6</span></div></article>
+      <section id="sns-screen" class="screen">
+        <h2 class="screen-title">SNS</h2>
+        <article class="card sns-card" data-post-id="buddy"><div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><div>방금 전</div></div></div><p class="post-text">오늘은 별일 없어도 괜찮은 날 같아.</p><div class="reaction-row"><button class="like-button" data-like-count="8" aria-pressed="false">♡ <span>8</span></button><button class="comment-button">댓글 <span class="comment-count"></span></button></div></article>
+        <article class="card sns-card" data-post-id="hash" hidden><div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><div>12분 전</div></div></div><p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p><div class="reaction-row"><button class="like-button" data-like-count="11" aria-pressed="false">♡ <span>11</span></button><button class="comment-button">댓글 <span class="comment-count"></span></button></div></article>
+        <article class="card sns-card" data-post-id="ena" hidden><div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><div>25분 전</div></div></div><p class="post-text">오늘 하늘이 예뻐서 마음에 저장했어용.</p><div class="reaction-row"><button class="like-button" data-like-count="15" aria-pressed="false">♡ <span>15</span></button><button class="comment-button">댓글 <span class="comment-count"></span></button></div></article>
         <p id="post-counter" class="counter">1 / 3</p>
-        <div class="placeholder-note">좋아요를 눌러 하트와 숫자 변화를 확인하세요. 상하는 게시물 이동, 좌우는 단체채팅 이동입니다.</div>
       </section>
-      <section id="group-chat-screen" class="screen chat-screen" aria-labelledby="group-chat-title" hidden>
-        <h2 id="group-chat-title" class="screen-title">5인 단체채팅</h2>
-        <div id="chat-scroll" class="chat-scroll" aria-label="단체채팅 대화 내역">
-          <div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>다들 오늘 뭐 하고 있었어?</p></div></div>
-          <div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>전 그냥 여기 있었슴다.</p></div></div>
-          <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나도 방금 들어왔어용.</p></div></div>
-          <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>확인했습니다. 오늘은 다들 조용하네요.</p></div></div>
-          <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>현재 5명이 참여 중입니다.</p></div></div>
-          <div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>조용한 김에 뭐라도 같이 할까?</p></div></div>
-          <div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>전 가벼운 거면 괜찮슴다.</p></div></div>
-          <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>좋아용. 사용자님도 같이 해요!</p></div></div>
-          <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>종목부터 정하는 게 좋겠습니다.</p></div></div>
-          <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>대화가 이어지고 있습니다.</p></div></div>
-          <div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>가위바위보 어때? 준비할 것도 없잖아.</p></div></div>
-          <div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>그 정도면 바로 가능하겠슴다.</p></div></div>
-          <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나는 찬성이에용!</p></div></div>
-          <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>사용자님 의견을 기다리겠습니다.</p></div></div>
-          <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>제안이 기록되었습니다.</p></div></div>
-        </div>
-        <div class="chat-input"><input type="text" placeholder="메시지 입력" disabled><button type="button" disabled>전송</button></div>
-      </section>
+      <section id="group-chat-screen" class="screen chat-screen" hidden><h2 class="screen-title">5인 단체채팅</h2><div id="chat-scroll" class="chat-scroll"><div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>다들 오늘 뭐 하고 있었어?</p></div></div><div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>전 그냥 여기 있었슴다.</p></div></div><div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나도 방금 들어왔어용.</p></div></div><div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>오늘은 조용하네요.</p></div></div><div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>현재 5명이 참여 중입니다.</p></div></div><div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>가위바위보 어때?</p></div></div><div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>그 정도면 가능하겠슴다.</p></div></div><div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나는 찬성이에용!</p></div></div></div><div class="chat-input"><input disabled placeholder="메시지 입력"><button disabled>전송</button></div></section>
     </section>
+    <section id="comments" class="comments" hidden><div class="comments-panel"><div class="comments-head"><strong id="comments-title">댓글</strong><button id="close-comments">×</button></div><div id="comments-list" class="comments-list"></div></div></section>
   </main>
   <script>
     "use strict";
-    const screens={sns:document.getElementById("sns-screen"),groupChat:document.getElementById("group-chat-screen")};
-    const screenOrder=["sns","groupChat"],screenStack=document.getElementById("screen-stack"),chatScroll=document.getElementById("chat-scroll");
-    const navButtons=Array.from(document.querySelectorAll("[data-screen]")),snsCards=Array.from(document.querySelectorAll(".sns-card")),postCounter=document.getElementById("post-counter"),likeButtons=Array.from(document.querySelectorAll(".like-button"));
-    const gesture={active:false,pointerId:null,startX:0,startY:0,lastY:0,axis:null};
-    const lockDistance=12,minimumDistance=55; let currentScreen="sns",currentPostIndex=0;
-    function showScreen(name){if(!screens[name])return;currentScreen=name;Object.entries(screens).forEach(([key,screen])=>{screen.hidden=key!==name;});navButtons.forEach(button=>button.dataset.screen===name?button.setAttribute("aria-current","page"):button.removeAttribute("aria-current"));}
-    function moveHorizontal(){const currentIndex=screenOrder.indexOf(currentScreen);showScreen(screenOrder[(currentIndex+1)%screenOrder.length]);}
-    function showPost(index){currentPostIndex=(index+snsCards.length)%snsCards.length;snsCards.forEach((card,cardIndex)=>{card.hidden=cardIndex!==currentPostIndex;});postCounter.textContent=`${currentPostIndex+1} / ${snsCards.length}`;}
-    function moveVertical(direction){if(currentScreen!=="sns")return;showPost(currentPostIndex+(direction==="up"?1:-1));}
-    function resetGesture(){gesture.active=false;gesture.pointerId=null;gesture.axis=null;screenStack.classList.remove("is-dragging");}
-    function handlePointerDown(event){if(event.target.closest("button,input"))return;if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.axis=null;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);}
-    function handlePointerMove(event){if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(!gesture.axis&&Math.max(absX,absY)>=lockDistance)gesture.axis=absX>absY?"horizontal":"vertical";if(currentScreen==="groupChat"&&gesture.axis==="vertical")chatScroll.scrollTop-=event.clientY-gesture.lastY;gesture.lastY=event.clientY;}
-    function handlePointerUp(event){if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(gesture.axis==="horizontal"&&absX>=minimumDistance)moveHorizontal();else if(gesture.axis==="vertical"&&currentScreen==="sns"&&absY>=minimumDistance)moveVertical(deltaY<0?"up":"down");resetGesture();}
-    screenStack.addEventListener("pointerdown",handlePointerDown,true);
-    screenStack.addEventListener("pointermove",handlePointerMove,true);
-    screenStack.addEventListener("pointerup",handlePointerUp,true);
-    screenStack.addEventListener("pointercancel",resetGesture,true);
-    screenStack.addEventListener("lostpointercapture",resetGesture,true);
-    navButtons.forEach(button=>button.addEventListener("click",()=>showScreen(button.dataset.screen)));
-    likeButtons.forEach(button=>button.addEventListener("click",()=>{const liked=button.getAttribute("aria-pressed")==="true",baseCount=Number(button.dataset.likeCount),countElement=button.querySelector("span");button.setAttribute("aria-pressed",String(!liked));button.firstChild.textContent=liked?"♡ ":"♥ ";countElement.textContent=String(baseCount+(liked?0:1));}));
+    const commentData={
+      buddy:[
+        {name:"해시",text:"그런 날도 괜찮슴다."},
+        {name:"에나",text:"잠깐 들렀다 가도 좋아용."},
+        {name:"새디",text:"확인했습니다."}
+      ],
+      hash:[
+        {name:"버디",text:"커피 한 잔 더 마실래?"},
+        {name:"에나",text:"식은 커피도 나름 괜찮아용."},
+        {name:"새디",text:"할 일부터 정리하시죠."},
+        {name:"이온",text:"댓글 4개가 기록되었습니다."}
+      ],
+      ena:[
+        {name:"해시",text:"사진도 올려주면 좋겠슴다."},
+        {name:"버디",text:"나도 하늘 봤어. 예쁘더라."},
+        {name:"새디",text:"맑은 날씨로 확인됩니다."},
+        {name:"이온",text:"게시물 반응이 기록되었습니다."},
+        {name:"나래",text:"오늘 하늘 정말 좋았어요."},
+        {name:"루미",text:"다음에는 사진도 보여줘!"}
+      ]
+    };
+    const screens={sns:document.getElementById("sns-screen"),groupChat:document.getElementById("group-chat-screen")},stack=document.getElementById("screen-stack"),chat=document.getElementById("chat-scroll"),cards=[...document.querySelectorAll(".sns-card")],counter=document.getElementById("post-counter"),comments=document.getElementById("comments"),commentsList=document.getElementById("comments-list"),commentsTitle=document.getElementById("comments-title");
+    let screen="sns",post=0,g={on:false,id:null,x:0,y:0,lastY:0,axis:null};
+    function showScreen(n){screen=n;Object.entries(screens).forEach(([k,v])=>v.hidden=k!==n)}
+    function showPost(i){post=(i+cards.length)%cards.length;cards.forEach((c,n)=>c.hidden=n!==post);counter.textContent=`${post+1} / ${cards.length}`}
+    function reset(){g={on:false,id:null,x:0,y:0,lastY:0,axis:null}}
+    function renderCommentCounts(){cards.forEach(card=>{const id=card.dataset.postId;card.querySelector(".comment-count").textContent=String((commentData[id]||[]).length)})}
+    function openComments(postId){const list=commentData[postId]||[];commentsTitle.textContent=`댓글 ${list.length}`;commentsList.replaceChildren();if(!list.length){const empty=document.createElement("div");empty.className="comments-empty";empty.textContent="아직 댓글이 없습니다.";commentsList.appendChild(empty)}else{list.forEach(item=>{const row=document.createElement("div");row.className="comment";const name=document.createElement("strong");name.textContent=item.name;const text=document.createElement("p");text.textContent=item.text;row.append(name,text);commentsList.appendChild(row)})}commentsList.scrollTop=0;comments.hidden=false}
+    stack.addEventListener("pointerdown",e=>{if(comments.hidden===false||e.target.closest("button,input"))return;g={on:true,id:e.pointerId,x:e.clientX,y:e.clientY,lastY:e.clientY,axis:null};stack.setPointerCapture(e.pointerId)},true);
+    stack.addEventListener("pointermove",e=>{if(!g.on||g.id!==e.pointerId)return;const dx=e.clientX-g.x,dy=e.clientY-g.y;if(!g.axis&&Math.max(Math.abs(dx),Math.abs(dy))>12)g.axis=Math.abs(dx)>Math.abs(dy)?"h":"v";if(screen==="groupChat"&&g.axis==="v")chat.scrollTop-=e.clientY-g.lastY;g.lastY=e.clientY},true);
+    stack.addEventListener("pointerup",e=>{if(!g.on||g.id!==e.pointerId)return;const dx=e.clientX-g.x,dy=e.clientY-g.y;if(g.axis==="h"&&Math.abs(dx)>55)showScreen(screen==="sns"?"groupChat":"sns");else if(g.axis==="v"&&screen==="sns"&&Math.abs(dy)>55)showPost(post+(dy<0?1:-1));reset()},true);
+    document.querySelectorAll("[data-screen]").forEach(b=>b.onclick=()=>showScreen(b.dataset.screen));
+    document.querySelectorAll(".like-button").forEach(b=>b.onclick=()=>{const liked=b.getAttribute("aria-pressed")==="true",base=Number(b.dataset.likeCount);b.setAttribute("aria-pressed",String(!liked));b.firstChild.textContent=liked?"♡ ":"♥ ";b.querySelector("span").textContent=String(base+(liked?0:1))});
+    document.querySelectorAll(".comment-button").forEach(b=>b.onclick=()=>openComments(b.closest(".sns-card").dataset.postId));
+    document.getElementById("close-comments").onclick=()=>comments.hidden=true;comments.onclick=e=>{if(e.target===comments)comments.hidden=true};
+    renderCommentCounts();
   </script>
 </body>
 </html>
