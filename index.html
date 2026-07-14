@@ -5,200 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HESEB</title>
   <style>
-    :root {
-      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: #3a2e2a;
-      background: #eef3f6;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-    }
-
-    .phone {
-      width: min(100%, 430px);
-      min-height: 760px;
-      overflow: hidden;
-      border-radius: 30px;
-      background: #f8fbfc;
-      box-shadow: 0 24px 60px rgba(37, 46, 53, 0.18);
-      border: 1px solid rgba(58, 46, 42, 0.08);
-    }
-
-    .app-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      min-height: 72px;
-      padding: 18px 20px;
-      color: #fff;
-      background: linear-gradient(90deg, #f185ae 0%, #f8b871 35%, #a573ed 70%, #6bb2ff 100%);
-    }
-
-    .app-header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 0.08em; }
-    .status { font-size: 0.78rem; opacity: 0.9; }
-
-    .screen-stack {
-      padding: 18px;
-      touch-action: pan-y;
-      user-select: none;
-      cursor: grab;
-    }
-
-    .screen-stack.is-dragging { cursor: grabbing; }
-    .screen { min-height: 600px; }
-    .screen[hidden] { display: none; }
-    .screen-title { margin: 0 0 14px; font-size: 1.5rem; }
-
-    .card {
-      padding: 18px;
-      border-radius: 22px;
-      background: #fff;
-      box-shadow: 0 10px 24px rgba(52, 63, 70, 0.08);
-    }
-
-    .profile-row,
-    .chat-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .profile-row { margin-bottom: 16px; }
-    .chat-row + .chat-row { margin-top: 14px; }
-
-    .avatar {
-      width: 48px;
-      height: 48px;
-      display: grid;
-      place-items: center;
-      border-radius: 50%;
-      color: #fff;
-      background: #ff8e7a;
-      font-weight: 800;
-      flex: 0 0 auto;
-    }
-
-    .avatar.hash { background: #6bb2ff; }
-    .avatar.ena { background: #f8b871; }
-    .avatar.sady { background: #a573ed; }
-    .avatar.ion { background: #8a6f66; }
-
-    .profile-row strong,
-    .profile-row span { display: block; }
-    .profile-row span { margin-top: 3px; color: #8a6f66; font-size: 0.82rem; }
-    .post-text, .message-text { margin: 0; line-height: 1.65; }
-
-    .reaction-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 18px;
-      color: #6b4f45;
-      font-size: 0.9rem;
-    }
-
-    .chat-row .content { min-width: 0; flex: 1; }
-    .chat-row .content p {
-      margin: 4px 0 0;
-      color: #6b4f45;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .placeholder-note {
-      margin-top: 16px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      color: #6b4f45;
-      background: #edf4f7;
-      font-size: 0.88rem;
-      line-height: 1.55;
-    }
-
-    .bottom-nav {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      border-top: 1px solid rgba(58, 46, 42, 0.08);
-      background: #fff;
-    }
-
-    .bottom-nav button {
-      min-height: 64px;
-      border: 0;
-      color: #8a6f66;
-      background: transparent;
-      font: inherit;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .bottom-nav button:hover,
-    .bottom-nav button:focus-visible {
-      background: rgba(241, 133, 174, 0.08);
-      outline: none;
-    }
-
-    .bottom-nav button[aria-current="page"] { color: #f06a5a; }
-
-    @media (max-width: 520px) {
-      body { padding: 0; }
-      .phone { width: 100%; min-height: 100vh; border: 0; border-radius: 0; }
-    }
+    :root { font-family: Pretendard, "Noto Sans KR", system-ui, sans-serif; color:#3a2e2a; background:#eef3f6; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; display:grid; place-items:center; padding:24px; }
+    .phone { width:min(100%,430px); min-height:760px; overflow:hidden; border-radius:30px; background:#f8fbfc; box-shadow:0 24px 60px rgba(37,46,53,.18); border:1px solid rgba(58,46,42,.08); }
+    .app-header { display:flex; align-items:center; justify-content:space-between; min-height:72px; padding:18px 20px; color:#fff; background:linear-gradient(90deg,#f185ae 0%,#f8b871 35%,#a573ed 70%,#6bb2ff 100%); }
+    .app-header h1 { margin:0; font-size:1.1rem; letter-spacing:.08em; }
+    .status { font-size:.78rem; opacity:.9; }
+    .screen-stack { padding:18px; touch-action:none; user-select:none; cursor:grab; }
+    .screen-stack.is-dragging { cursor:grabbing; }
+    .screen { min-height:600px; }
+    .screen[hidden], .sns-card[hidden] { display:none; }
+    .screen-title { margin:0 0 14px; font-size:1.5rem; }
+    .card { padding:18px; border-radius:22px; background:#fff; box-shadow:0 10px 24px rgba(52,63,70,.08); }
+    .profile-row,.chat-row { display:flex; align-items:center; gap:12px; }
+    .profile-row { margin-bottom:16px; }
+    .chat-row + .chat-row { margin-top:14px; }
+    .avatar { width:48px; height:48px; display:grid; place-items:center; border-radius:50%; color:#fff; background:#ff8e7a; font-weight:800; flex:0 0 auto; }
+    .avatar.hash { background:#6bb2ff; } .avatar.ena { background:#f8b871; } .avatar.sady { background:#a573ed; } .avatar.ion { background:#8a6f66; }
+    .profile-row strong,.profile-row span { display:block; }
+    .profile-row span { margin-top:3px; color:#8a6f66; font-size:.82rem; }
+    .post-text,.message-text { margin:0; line-height:1.65; }
+    .reaction-row { display:flex; gap:10px; margin-top:18px; color:#6b4f45; font-size:.9rem; }
+    .chat-row .content { min-width:0; flex:1; }
+    .chat-row .content p { margin:4px 0 0; color:#6b4f45; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .placeholder-note { margin-top:16px; padding:14px 16px; border-radius:16px; color:#6b4f45; background:#edf4f7; font-size:.88rem; line-height:1.55; }
+    .counter { margin:12px 0 0; text-align:center; color:#8a6f66; font-size:.82rem; }
+    .bottom-nav { display:grid; grid-template-columns:repeat(2,1fr); border-top:1px solid rgba(58,46,42,.08); background:#fff; }
+    .bottom-nav button { min-height:64px; border:0; color:#8a6f66; background:transparent; font:inherit; font-weight:700; cursor:pointer; }
+    .bottom-nav button[aria-current="page"] { color:#f06a5a; }
+    @media (max-width:520px) { body{padding:0;} .phone{width:100%; min-height:100vh; border:0; border-radius:0;} }
   </style>
 </head>
 <body>
   <main class="phone" aria-label="HESEB 애플리케이션">
-    <header class="app-header">
-      <h1>HESEB</h1>
-      <span class="status">V1 STEP 2</span>
-    </header>
+    <header class="app-header"><h1>HESEB</h1><span class="status">V1 STEP 3</span></header>
 
     <section id="screen-stack" class="screen-stack">
       <section id="sns-screen" class="screen" aria-labelledby="sns-title">
         <h2 id="sns-title" class="screen-title">SNS</h2>
-        <article class="card">
-          <div class="profile-row">
-            <div class="avatar" aria-hidden="true">B</div>
-            <div><strong>버디</strong><span>방금 전</span></div>
-          </div>
+
+        <article class="card sns-card" data-post-index="0">
+          <div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div>
           <p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p>
-          <div class="reaction-row" aria-label="임시 반응 정보"><span>♡ 8</span><span>댓글 3</span></div>
+          <div class="reaction-row"><span>♡ 8</span><span>댓글 3</span></div>
         </article>
-        <div class="placeholder-note">왼쪽이나 오른쪽 어느 방향으로 밀어도 5인 단체채팅으로 이동합니다.</div>
+
+        <article class="card sns-card" data-post-index="1" hidden>
+          <div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div>
+          <p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p>
+          <div class="reaction-row"><span>♡ 11</span><span>댓글 4</span></div>
+        </article>
+
+        <article class="card sns-card" data-post-index="2" hidden>
+          <div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div>
+          <p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p>
+          <div class="reaction-row"><span>♡ 15</span><span>댓글 6</span></div>
+        </article>
+
+        <p id="post-counter" class="counter">1 / 3</p>
+        <div class="placeholder-note">위·아래로 밀거나 드래그하면 SNS 게시물이 순환합니다. 좌우로 밀면 단체채팅으로 이동합니다.</div>
       </section>
 
       <section id="group-chat-screen" class="screen" aria-labelledby="group-chat-title" hidden>
         <h2 id="group-chat-title" class="screen-title">5인 단체채팅</h2>
-        <article class="card" aria-label="5인 단체채팅 미리보기">
-          <div class="chat-row">
-            <div class="avatar" aria-hidden="true">B</div>
-            <div class="content"><strong>버디</strong><p class="message-text">다들 오늘 뭐 하고 있었어?</p></div>
-          </div>
-          <div class="chat-row">
-            <div class="avatar hash" aria-hidden="true">H</div>
-            <div class="content"><strong>해시</strong><p class="message-text">전 그냥 여기 있었슴다.</p></div>
-          </div>
-          <div class="chat-row">
-            <div class="avatar ena" aria-hidden="true">E</div>
-            <div class="content"><strong>에나</strong><p class="message-text">에나도 방금 들어왔어용.</p></div>
-          </div>
-          <div class="chat-row">
-            <div class="avatar sady" aria-hidden="true">S</div>
-            <div class="content"><strong>새디</strong><p class="message-text">확인했습니다.</p></div>
-          </div>
-          <div class="chat-row">
-            <div class="avatar ion" aria-hidden="true">I</div>
-            <div class="content"><strong>이온</strong><p class="message-text">현재 5명이 참여 중입니다.</p></div>
-          </div>
+        <article class="card">
+          <div class="chat-row"><div class="avatar">B</div><div class="content"><strong>버디</strong><p>다들 오늘 뭐 하고 있었어?</p></div></div>
+          <div class="chat-row"><div class="avatar hash">H</div><div class="content"><strong>해시</strong><p>전 그냥 여기 있었슴다.</p></div></div>
+          <div class="chat-row"><div class="avatar ena">E</div><div class="content"><strong>에나</strong><p>에나도 방금 들어왔어용.</p></div></div>
+          <div class="chat-row"><div class="avatar sady">S</div><div class="content"><strong>새디</strong><p>확인했습니다.</p></div></div>
+          <div class="chat-row"><div class="avatar ion">I</div><div class="content"><strong>이온</strong><p>현재 5명이 참여 중입니다.</p></div></div>
         </article>
-        <div class="placeholder-note">왼쪽이나 오른쪽 어느 방향으로 밀어도 다시 SNS로 이동합니다. 개별 소통은 이후 쪽지함으로 추가합니다.</div>
+        <div class="placeholder-note">좌우 어느 방향으로 밀어도 SNS로 돌아갑니다. 상하 동작은 단체채팅에서는 사용하지 않습니다.</div>
       </section>
     </section>
 
@@ -210,38 +88,38 @@
 
   <script>
     "use strict";
-
-    const screens = {
-      sns: document.getElementById("sns-screen"),
-      groupChat: document.getElementById("group-chat-screen")
-    };
-    const screenOrder = ["sns", "groupChat"];
+    const screens = { sns:document.getElementById("sns-screen"), groupChat:document.getElementById("group-chat-screen") };
+    const screenOrder = ["sns","groupChat"];
     const screenStack = document.getElementById("screen-stack");
     const navButtons = Array.from(document.querySelectorAll("[data-screen]"));
-    const gesture = { active: false, pointerId: null, startX: 0, startY: 0 };
+    const snsCards = Array.from(document.querySelectorAll(".sns-card"));
+    const postCounter = document.getElementById("post-counter");
+    const gesture = { active:false, pointerId:null, startX:0, startY:0 };
     const minimumDistance = 55;
     let currentScreen = "sns";
+    let currentPostIndex = 0;
 
-    function showScreen(screenName) {
-      if (!Object.prototype.hasOwnProperty.call(screens, screenName)) return;
-      currentScreen = screenName;
-
-      Object.entries(screens).forEach(([name, screen]) => {
-        screen.hidden = name !== screenName;
-      });
-
-      navButtons.forEach((button) => {
-        const isActive = button.dataset.screen === screenName;
-        if (isActive) button.setAttribute("aria-current", "page");
-        else button.removeAttribute("aria-current");
-      });
+    function showScreen(name) {
+      if (!screens[name]) return;
+      currentScreen = name;
+      Object.entries(screens).forEach(([key,screen]) => { screen.hidden = key !== name; });
+      navButtons.forEach((button) => button.dataset.screen === name ? button.setAttribute("aria-current","page") : button.removeAttribute("aria-current"));
     }
 
-    function moveHorizontal(direction) {
-      if (direction !== "left" && direction !== "right") return;
+    function moveHorizontal() {
       const currentIndex = screenOrder.indexOf(currentScreen);
-      const nextIndex = (currentIndex + 1) % screenOrder.length;
-      showScreen(screenOrder[nextIndex]);
+      showScreen(screenOrder[(currentIndex + 1) % screenOrder.length]);
+    }
+
+    function showPost(index) {
+      currentPostIndex = (index + snsCards.length) % snsCards.length;
+      snsCards.forEach((card,cardIndex) => { card.hidden = cardIndex !== currentPostIndex; });
+      postCounter.textContent = `${currentPostIndex + 1} / ${snsCards.length}`;
+    }
+
+    function moveVertical(direction) {
+      if (currentScreen !== "sns") return;
+      showPost(currentPostIndex + (direction === "up" ? 1 : -1));
     }
 
     function resetGesture() {
@@ -262,24 +140,21 @@
 
     screenStack.addEventListener("pointerup", (event) => {
       if (!gesture.active || gesture.pointerId !== event.pointerId) return;
-
       const deltaX = event.clientX - gesture.startX;
       const deltaY = event.clientY - gesture.startY;
-      const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+      const absX = Math.abs(deltaX);
+      const absY = Math.abs(deltaY);
 
-      if (isHorizontal && Math.abs(deltaX) >= minimumDistance) {
-        moveHorizontal(deltaX < 0 ? "left" : "right");
+      if (Math.max(absX, absY) >= minimumDistance) {
+        if (absX > absY) moveHorizontal();
+        else moveVertical(deltaY < 0 ? "up" : "down");
       }
-
       resetGesture();
     });
 
     screenStack.addEventListener("pointercancel", resetGesture);
     screenStack.addEventListener("lostpointercapture", resetGesture);
-
-    navButtons.forEach((button) => {
-      button.addEventListener("click", () => showScreen(button.dataset.screen));
-    });
+    navButtons.forEach((button) => button.addEventListener("click", () => showScreen(button.dataset.screen)));
   </script>
 </body>
 </html>
