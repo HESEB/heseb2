@@ -34,7 +34,7 @@
     .counter { margin:12px 0 0; text-align:center; color:#8a6f66; font-size:.82rem; }
     .placeholder-note { margin-top:16px; padding:14px 16px; border-radius:16px; color:#6b4f45; background:#edf4f7; font-size:.88rem; line-height:1.55; }
     .chat-screen { display:flex; flex-direction:column; }
-    .chat-scroll { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding:18px 14px 24px; background:#eef5f8; border-radius:22px; }
+    .chat-scroll { flex:1; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-gutter:stable; padding:18px 14px 24px; background:#eef5f8; border-radius:22px; touch-action:none; }
     .chat-row { align-items:flex-start; }
     .chat-row .content { min-width:0; flex:1; padding:10px 12px; border-radius:16px; background:#fff; box-shadow:0 5px 14px rgba(52,63,70,.06); }
     .chat-row .content p { margin:4px 0 0; color:#6b4f45; line-height:1.45; }
@@ -95,10 +95,14 @@
     function showPost(index){currentPostIndex=(index+snsCards.length)%snsCards.length;snsCards.forEach((card,cardIndex)=>{card.hidden=cardIndex!==currentPostIndex;});postCounter.textContent=`${currentPostIndex+1} / ${snsCards.length}`;}
     function moveVertical(direction){if(currentScreen!=="sns")return;showPost(currentPostIndex+(direction==="up"?1:-1));}
     function resetGesture(){gesture.active=false;gesture.pointerId=null;gesture.axis=null;screenStack.classList.remove("is-dragging");}
-    screenStack.addEventListener("pointerdown",event=>{if(event.target.closest("button,input"))return;if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.axis=null;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);});
-    screenStack.addEventListener("pointermove",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(!gesture.axis&&Math.max(absX,absY)>=lockDistance)gesture.axis=absX>absY?"horizontal":"vertical";if(currentScreen==="groupChat"&&gesture.axis==="vertical")chatScroll.scrollTop-=event.clientY-gesture.lastY;gesture.lastY=event.clientY;});
-    screenStack.addEventListener("pointerup",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(gesture.axis==="horizontal"&&absX>=minimumDistance)moveHorizontal();else if(gesture.axis==="vertical"&&currentScreen==="sns"&&absY>=minimumDistance)moveVertical(deltaY<0?"up":"down");resetGesture();});
-    screenStack.addEventListener("pointercancel",resetGesture);screenStack.addEventListener("lostpointercapture",resetGesture);
+    function handlePointerDown(event){if(event.target.closest("button,input"))return;if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.axis=null;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);}
+    function handlePointerMove(event){if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(!gesture.axis&&Math.max(absX,absY)>=lockDistance)gesture.axis=absX>absY?"horizontal":"vertical";if(currentScreen==="groupChat"&&gesture.axis==="vertical")chatScroll.scrollTop-=event.clientY-gesture.lastY;gesture.lastY=event.clientY;}
+    function handlePointerUp(event){if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(gesture.axis==="horizontal"&&absX>=minimumDistance)moveHorizontal();else if(gesture.axis==="vertical"&&currentScreen==="sns"&&absY>=minimumDistance)moveVertical(deltaY<0?"up":"down");resetGesture();}
+    screenStack.addEventListener("pointerdown",handlePointerDown,true);
+    screenStack.addEventListener("pointermove",handlePointerMove,true);
+    screenStack.addEventListener("pointerup",handlePointerUp,true);
+    screenStack.addEventListener("pointercancel",resetGesture,true);
+    screenStack.addEventListener("lostpointercapture",resetGesture,true);
     navButtons.forEach(button=>button.addEventListener("click",()=>showScreen(button.dataset.screen)));
     likeButtons.forEach(button=>button.addEventListener("click",()=>{const liked=button.getAttribute("aria-pressed")==="true",baseCount=Number(button.dataset.likeCount),countElement=button.querySelector("span");button.setAttribute("aria-pressed",String(!liked));button.firstChild.textContent=liked?"♡ ":"♥ ";countElement.textContent=String(baseCount+(liked?0:1));}));
   </script>
