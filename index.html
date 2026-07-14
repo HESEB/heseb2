@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HESEB</title>
+  <style>
+    :root {
+      font-family: Pretendard, "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: #3a2e2a;
+      background: #eef3f6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .phone {
+      width: min(100%, 430px);
+      min-height: 760px;
+      overflow: hidden;
+      border-radius: 30px;
+      background: #f8fbfc;
+      box-shadow: 0 24px 60px rgba(37, 46, 53, 0.18);
+      border: 1px solid rgba(58, 46, 42, 0.08);
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      padding: 18px 20px;
+      color: #fff;
+      background: linear-gradient(90deg, #f185ae 0%, #f8b871 35%, #a573ed 70%, #6bb2ff 100%);
+    }
+
+    .app-header h1 {
+      margin: 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+    }
+
+    .status {
+      font-size: 0.78rem;
+      opacity: 0.9;
+    }
+
+    .screen-stack {
+      padding: 18px;
+    }
+
+    .screen {
+      min-height: 600px;
+    }
+
+    .screen[hidden] {
+      display: none;
+    }
+
+    .screen-title {
+      margin: 0 0 14px;
+      font-size: 1.5rem;
+    }
+
+    .card {
+      padding: 18px;
+      border-radius: 22px;
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(52, 63, 70, 0.08);
+    }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .avatar {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #fff;
+      background: #ff8e7a;
+      font-weight: 800;
+    }
+
+    .profile-row strong,
+    .profile-row span {
+      display: block;
+    }
+
+    .profile-row span {
+      margin-top: 3px;
+      color: #8a6f66;
+      font-size: 0.82rem;
+    }
+
+    .post-text,
+    .message-text {
+      margin: 0;
+      line-height: 1.65;
+    }
+
+    .reaction-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 18px;
+      color: #6b4f45;
+      font-size: 0.9rem;
+    }
+
+    .dm-preview {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dm-preview .content {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .dm-preview .content p {
+      margin: 4px 0 0;
+      color: #6b4f45;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .badge {
+      min-width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #fff;
+      background: #f74c9c;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .placeholder-note {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      color: #6b4f45;
+      background: #edf4f7;
+      font-size: 0.88rem;
+      line-height: 1.55;
+    }
+
+    .bottom-nav {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid rgba(58, 46, 42, 0.08);
+      background: #fff;
+    }
+
+    .bottom-nav button {
+      min-height: 64px;
+      border: 0;
+      color: #8a6f66;
+      background: transparent;
+      font: inherit;
+      font-weight: 700;
+      cursor: default;
+    }
+
+    .bottom-nav button[aria-current="page"] {
+      color: #f06a5a;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 0;
+      }
+
+      .phone {
+        width: 100%;
+        min-height: 100vh;
+        border: 0;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="phone" aria-label="HESEB 애플리케이션">
+    <header class="app-header">
+      <h1>HESEB</h1>
+      <span class="status">V1 STEP 1</span>
+    </header>
+
+    <section class="screen-stack">
+      <section id="sns-screen" class="screen" aria-labelledby="sns-title">
+        <h2 id="sns-title" class="screen-title">SNS</h2>
+        <article class="card">
+          <div class="profile-row">
+            <div class="avatar" aria-hidden="true">B</div>
+            <div>
+              <strong>버디</strong>
+              <span>방금 전</span>
+            </div>
+          </div>
+          <p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p>
+          <div class="reaction-row" aria-label="임시 반응 정보">
+            <span>♡ 8</span>
+            <span>댓글 3</span>
+          </div>
+        </article>
+        <div class="placeholder-note">
+          현재 단계에서는 SNS 화면의 정적 구조만 확인합니다. 좋아요, 댓글, 화면 전환 기능은 아직 동작하지 않습니다.
+        </div>
+      </section>
+
+      <section id="dm-screen" class="screen" aria-labelledby="dm-title" hidden>
+        <h2 id="dm-title" class="screen-title">DM</h2>
+        <article class="card dm-preview">
+          <div class="avatar" aria-hidden="true">B</div>
+          <div class="content">
+            <strong>버디</strong>
+            <p class="message-text">오늘은 어떻게 보냈어?</p>
+          </div>
+          <span class="badge" aria-label="읽지 않은 메시지 1개">1</span>
+        </article>
+        <div class="placeholder-note">
+          현재 단계에서는 DM 화면의 정적 구조만 확인합니다. 채팅방 진입과 화면 전환은 다음 기능 단계에서 구현합니다.
+        </div>
+      </section>
+    </section>
+
+    <nav class="bottom-nav" aria-label="메인 화면">
+      <button type="button" aria-current="page" disabled>SNS</button>
+      <button type="button" disabled>DM</button>
+    </nav>
+  </main>
+</body>
+</html>
