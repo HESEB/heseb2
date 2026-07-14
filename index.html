@@ -28,7 +28,9 @@
     .profile-row strong,.profile-row span { display:block; }
     .profile-row span { margin-top:3px; color:#8a6f66; font-size:.82rem; }
     .post-text { margin:0; line-height:1.65; }
-    .reaction-row { display:flex; gap:10px; margin-top:18px; color:#6b4f45; font-size:.9rem; }
+    .reaction-row { display:flex; align-items:center; gap:10px; margin-top:18px; color:#6b4f45; font-size:.9rem; }
+    .like-button { border:0; padding:4px 2px; color:#6b4f45; background:transparent; font:inherit; cursor:pointer; }
+    .like-button[aria-pressed="true"] { color:#f74c9c; font-weight:800; }
     .counter { margin:12px 0 0; text-align:center; color:#8a6f66; font-size:.82rem; }
     .placeholder-note { margin-top:16px; padding:14px 16px; border-radius:16px; color:#6b4f45; background:#edf4f7; font-size:.88rem; line-height:1.55; }
     .chat-screen { display:flex; flex-direction:column; }
@@ -52,11 +54,11 @@
     <section id="screen-stack" class="screen-stack">
       <section id="sns-screen" class="screen" aria-labelledby="sns-title">
         <h2 id="sns-title" class="screen-title">SNS</h2>
-        <article class="card sns-card" data-post-index="0"><div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div><p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p><div class="reaction-row"><span>♡ 8</span><span>댓글 3</span></div></article>
-        <article class="card sns-card" data-post-index="1" hidden><div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div><p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p><div class="reaction-row"><span>♡ 11</span><span>댓글 4</span></div></article>
-        <article class="card sns-card" data-post-index="2" hidden><div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div><p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p><div class="reaction-row"><span>♡ 15</span><span>댓글 6</span></div></article>
+        <article class="card sns-card" data-post-index="0"><div class="profile-row"><div class="avatar">B</div><div><strong>버디</strong><span>방금 전</span></div></div><p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="8" aria-pressed="false">♡ <span>8</span></button><span>댓글 3</span></div></article>
+        <article class="card sns-card" data-post-index="1" hidden><div class="profile-row"><div class="avatar hash">H</div><div><strong>해시</strong><span>12분 전</span></div></div><p class="post-text">커피는 식었지만 아직 할 일은 남았슴다.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="11" aria-pressed="false">♡ <span>11</span></button><span>댓글 4</span></div></article>
+        <article class="card sns-card" data-post-index="2" hidden><div class="profile-row"><div class="avatar ena">E</div><div><strong>에나</strong><span>25분 전</span></div></div><p class="post-text">오늘 하늘이 예뻐서 사진 대신 마음에 저장했어용.</p><div class="reaction-row"><button type="button" class="like-button" data-like-count="15" aria-pressed="false">♡ <span>15</span></button><span>댓글 6</span></div></article>
         <p id="post-counter" class="counter">1 / 3</p>
-        <div class="placeholder-note">상하는 게시물 이동, 좌우는 단체채팅 이동입니다.</div>
+        <div class="placeholder-note">좋아요를 눌러 하트와 숫자 변화를 확인하세요. 상하는 게시물 이동, 좌우는 단체채팅 이동입니다.</div>
       </section>
       <section id="group-chat-screen" class="screen chat-screen" aria-labelledby="group-chat-title" hidden>
         <h2 id="group-chat-title" class="screen-title">5인 단체채팅</h2>
@@ -85,7 +87,7 @@
     "use strict";
     const screens={sns:document.getElementById("sns-screen"),groupChat:document.getElementById("group-chat-screen")};
     const screenOrder=["sns","groupChat"],screenStack=document.getElementById("screen-stack"),chatScroll=document.getElementById("chat-scroll");
-    const navButtons=Array.from(document.querySelectorAll("[data-screen]")),snsCards=Array.from(document.querySelectorAll(".sns-card")),postCounter=document.getElementById("post-counter");
+    const navButtons=Array.from(document.querySelectorAll("[data-screen]")),snsCards=Array.from(document.querySelectorAll(".sns-card")),postCounter=document.getElementById("post-counter"),likeButtons=Array.from(document.querySelectorAll(".like-button"));
     const gesture={active:false,pointerId:null,startX:0,startY:0,lastY:0,axis:null};
     const lockDistance=12,minimumDistance=55; let currentScreen="sns",currentPostIndex=0;
     function showScreen(name){if(!screens[name])return;currentScreen=name;Object.entries(screens).forEach(([key,screen])=>{screen.hidden=key!==name;});navButtons.forEach(button=>button.dataset.screen===name?button.setAttribute("aria-current","page"):button.removeAttribute("aria-current"));}
@@ -93,10 +95,12 @@
     function showPost(index){currentPostIndex=(index+snsCards.length)%snsCards.length;snsCards.forEach((card,cardIndex)=>{card.hidden=cardIndex!==currentPostIndex;});postCounter.textContent=`${currentPostIndex+1} / ${snsCards.length}`;}
     function moveVertical(direction){if(currentScreen!=="sns")return;showPost(currentPostIndex+(direction==="up"?1:-1));}
     function resetGesture(){gesture.active=false;gesture.pointerId=null;gesture.axis=null;screenStack.classList.remove("is-dragging");}
-    screenStack.addEventListener("pointerdown",event=>{if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.axis=null;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);});
-    screenStack.addEventListener("pointermove",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(!gesture.axis&&Math.max(absX,absY)>=lockDistance)gesture.axis=absX>absY?"horizontal":"vertical";if(currentScreen==="groupChat"&&gesture.axis==="vertical"){chatScroll.scrollTop-=event.clientY-gesture.lastY;}gesture.lastY=event.clientY;});
+    screenStack.addEventListener("pointerdown",event=>{if(event.target.closest("button,input"))return;if(event.pointerType==="mouse"&&event.button!==0)return;gesture.active=true;gesture.pointerId=event.pointerId;gesture.startX=event.clientX;gesture.startY=event.clientY;gesture.lastY=event.clientY;gesture.axis=null;screenStack.classList.add("is-dragging");screenStack.setPointerCapture(event.pointerId);});
+    screenStack.addEventListener("pointermove",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(!gesture.axis&&Math.max(absX,absY)>=lockDistance)gesture.axis=absX>absY?"horizontal":"vertical";if(currentScreen==="groupChat"&&gesture.axis==="vertical")chatScroll.scrollTop-=event.clientY-gesture.lastY;gesture.lastY=event.clientY;});
     screenStack.addEventListener("pointerup",event=>{if(!gesture.active||gesture.pointerId!==event.pointerId)return;const deltaX=event.clientX-gesture.startX,deltaY=event.clientY-gesture.startY,absX=Math.abs(deltaX),absY=Math.abs(deltaY);if(gesture.axis==="horizontal"&&absX>=minimumDistance)moveHorizontal();else if(gesture.axis==="vertical"&&currentScreen==="sns"&&absY>=minimumDistance)moveVertical(deltaY<0?"up":"down");resetGesture();});
-    screenStack.addEventListener("pointercancel",resetGesture);screenStack.addEventListener("lostpointercapture",resetGesture);navButtons.forEach(button=>button.addEventListener("click",()=>showScreen(button.dataset.screen)));
+    screenStack.addEventListener("pointercancel",resetGesture);screenStack.addEventListener("lostpointercapture",resetGesture);
+    navButtons.forEach(button=>button.addEventListener("click",()=>showScreen(button.dataset.screen)));
+    likeButtons.forEach(button=>button.addEventListener("click",()=>{const liked=button.getAttribute("aria-pressed")==="true",baseCount=Number(button.dataset.likeCount),countElement=button.querySelector("span");button.setAttribute("aria-pressed",String(!liked));button.firstChild.textContent=liked?"♡ ":"♥ ";countElement.textContent=String(baseCount+(liked?0:1));}));
   </script>
 </body>
 </html>
