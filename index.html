@@ -11,9 +11,7 @@
       background: #eef3f6;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -43,33 +41,20 @@
       background: linear-gradient(90deg, #f185ae 0%, #f8b871 35%, #a573ed 70%, #6bb2ff 100%);
     }
 
-    .app-header h1 {
-      margin: 0;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-    }
-
-    .status {
-      font-size: 0.78rem;
-      opacity: 0.9;
-    }
+    .app-header h1 { margin: 0; font-size: 1.1rem; letter-spacing: 0.08em; }
+    .status { font-size: 0.78rem; opacity: 0.9; }
 
     .screen-stack {
       padding: 18px;
+      touch-action: pan-y;
+      user-select: none;
+      cursor: grab;
     }
 
-    .screen {
-      min-height: 600px;
-    }
-
-    .screen[hidden] {
-      display: none;
-    }
-
-    .screen-title {
-      margin: 0 0 14px;
-      font-size: 1.5rem;
-    }
+    .screen-stack.is-dragging { cursor: grabbing; }
+    .screen { min-height: 600px; }
+    .screen[hidden] { display: none; }
+    .screen-title { margin: 0 0 14px; font-size: 1.5rem; }
 
     .card {
       padding: 18px;
@@ -78,12 +63,14 @@
       box-shadow: 0 10px 24px rgba(52, 63, 70, 0.08);
     }
 
-    .profile-row {
+    .profile-row,
+    .dm-preview {
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 16px;
     }
+
+    .profile-row { margin-bottom: 16px; }
 
     .avatar {
       width: 48px;
@@ -94,24 +81,13 @@
       color: #fff;
       background: #ff8e7a;
       font-weight: 800;
+      flex: 0 0 auto;
     }
 
     .profile-row strong,
-    .profile-row span {
-      display: block;
-    }
-
-    .profile-row span {
-      margin-top: 3px;
-      color: #8a6f66;
-      font-size: 0.82rem;
-    }
-
-    .post-text,
-    .message-text {
-      margin: 0;
-      line-height: 1.65;
-    }
+    .profile-row span { display: block; }
+    .profile-row span { margin-top: 3px; color: #8a6f66; font-size: 0.82rem; }
+    .post-text, .message-text { margin: 0; line-height: 1.65; }
 
     .reaction-row {
       display: flex;
@@ -121,17 +97,7 @@
       font-size: 0.9rem;
     }
 
-    .dm-preview {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .dm-preview .content {
-      min-width: 0;
-      flex: 1;
-    }
-
+    .dm-preview .content { min-width: 0; flex: 1; }
     .dm-preview .content p {
       margin: 4px 0 0;
       color: #6b4f45;
@@ -185,21 +151,11 @@
       outline: none;
     }
 
-    .bottom-nav button[aria-current="page"] {
-      color: #f06a5a;
-    }
+    .bottom-nav button[aria-current="page"] { color: #f06a5a; }
 
     @media (max-width: 520px) {
-      body {
-        padding: 0;
-      }
-
-      .phone {
-        width: 100%;
-        min-height: 100vh;
-        border: 0;
-        border-radius: 0;
-      }
+      body { padding: 0; }
+      .phone { width: 100%; min-height: 100vh; border: 0; border-radius: 0; }
     }
   </style>
 </head>
@@ -207,50 +163,37 @@
   <main class="phone" aria-label="HESEB 애플리케이션">
     <header class="app-header">
       <h1>HESEB</h1>
-      <span class="status">V1 STEP 1</span>
+      <span class="status">V1 STEP 2</span>
     </header>
 
-    <section class="screen-stack">
+    <section id="screen-stack" class="screen-stack">
       <section id="sns-screen" class="screen" aria-labelledby="sns-title">
         <h2 id="sns-title" class="screen-title">SNS</h2>
         <article class="card">
           <div class="profile-row">
             <div class="avatar" aria-hidden="true">B</div>
-            <div>
-              <strong>버디</strong>
-              <span>방금 전</span>
-            </div>
+            <div><strong>버디</strong><span>방금 전</span></div>
           </div>
           <p class="post-text">오늘은 별일 없어도 괜찮은 날 같아. 그냥 잠깐 들렀다 가도 돼.</p>
-          <div class="reaction-row" aria-label="임시 반응 정보">
-            <span>♡ 8</span>
-            <span>댓글 3</span>
-          </div>
+          <div class="reaction-row" aria-label="임시 반응 정보"><span>♡ 8</span><span>댓글 3</span></div>
         </article>
-        <div class="placeholder-note">
-          SNS와 DM 버튼 전환만 검증하는 단계입니다. 좋아요와 댓글은 아직 동작하지 않습니다.
-        </div>
+        <div class="placeholder-note">왼쪽으로 밀거나 드래그하면 DM으로 이동합니다. 세로 움직임은 이번 단계에서 화면 전환으로 처리하지 않습니다.</div>
       </section>
 
       <section id="dm-screen" class="screen" aria-labelledby="dm-title" hidden>
         <h2 id="dm-title" class="screen-title">DM</h2>
         <article class="card dm-preview">
           <div class="avatar" aria-hidden="true">B</div>
-          <div class="content">
-            <strong>버디</strong>
-            <p class="message-text">오늘은 어떻게 보냈어?</p>
-          </div>
+          <div class="content"><strong>버디</strong><p class="message-text">오늘은 어떻게 보냈어?</p></div>
           <span class="badge" aria-label="읽지 않은 메시지 1개">1</span>
         </article>
-        <div class="placeholder-note">
-          SNS와 DM 버튼 전환만 검증하는 단계입니다. 채팅방 진입은 아직 동작하지 않습니다.
-        </div>
+        <div class="placeholder-note">오른쪽으로 밀거나 드래그하면 SNS로 돌아갑니다. 하단 버튼 이동도 그대로 사용할 수 있습니다.</div>
       </section>
     </section>
 
     <nav class="bottom-nav" aria-label="메인 화면">
-      <button id="sns-nav" type="button" data-screen="sns" aria-current="page">SNS</button>
-      <button id="dm-nav" type="button" data-screen="dm">DM</button>
+      <button type="button" data-screen="sns" aria-current="page">SNS</button>
+      <button type="button" data-screen="dm">DM</button>
     </nav>
   </main>
 
@@ -261,13 +204,16 @@
       sns: document.getElementById("sns-screen"),
       dm: document.getElementById("dm-screen")
     };
-
+    const screenOrder = ["sns", "dm"];
+    const screenStack = document.getElementById("screen-stack");
     const navButtons = Array.from(document.querySelectorAll("[data-screen]"));
+    const gesture = { active: false, pointerId: null, startX: 0, startY: 0 };
+    const minimumDistance = 55;
+    let currentScreen = "sns";
 
     function showScreen(screenName) {
-      if (!Object.prototype.hasOwnProperty.call(screens, screenName)) {
-        return;
-      }
+      if (!Object.prototype.hasOwnProperty.call(screens, screenName)) return;
+      currentScreen = screenName;
 
       Object.entries(screens).forEach(([name, screen]) => {
         screen.hidden = name !== screenName;
@@ -275,19 +221,53 @@
 
       navButtons.forEach((button) => {
         const isActive = button.dataset.screen === screenName;
-
-        if (isActive) {
-          button.setAttribute("aria-current", "page");
-        } else {
-          button.removeAttribute("aria-current");
-        }
+        if (isActive) button.setAttribute("aria-current", "page");
+        else button.removeAttribute("aria-current");
       });
     }
 
+    function moveHorizontal(direction) {
+      const currentIndex = screenOrder.indexOf(currentScreen);
+      const nextIndex = direction === "left" ? currentIndex + 1 : currentIndex - 1;
+      if (nextIndex < 0 || nextIndex >= screenOrder.length) return;
+      showScreen(screenOrder[nextIndex]);
+    }
+
+    function resetGesture() {
+      gesture.active = false;
+      gesture.pointerId = null;
+      screenStack.classList.remove("is-dragging");
+    }
+
+    screenStack.addEventListener("pointerdown", (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      gesture.active = true;
+      gesture.pointerId = event.pointerId;
+      gesture.startX = event.clientX;
+      gesture.startY = event.clientY;
+      screenStack.classList.add("is-dragging");
+      screenStack.setPointerCapture(event.pointerId);
+    });
+
+    screenStack.addEventListener("pointerup", (event) => {
+      if (!gesture.active || gesture.pointerId !== event.pointerId) return;
+
+      const deltaX = event.clientX - gesture.startX;
+      const deltaY = event.clientY - gesture.startY;
+      const isHorizontal = Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (isHorizontal && Math.abs(deltaX) >= minimumDistance) {
+        moveHorizontal(deltaX < 0 ? "left" : "right");
+      }
+
+      resetGesture();
+    });
+
+    screenStack.addEventListener("pointercancel", resetGesture);
+    screenStack.addEventListener("lostpointercapture", resetGesture);
+
     navButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        showScreen(button.dataset.screen);
-      });
+      button.addEventListener("click", () => showScreen(button.dataset.screen));
     });
   </script>
 </body>
